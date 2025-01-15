@@ -1,0 +1,110 @@
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: status
+      logic-not-delete-value: 1
+      logic-delete-value: 0
+
+spring:
+  datasource:
+    url:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username:
+    password:
+
+  flyway:
+    baseline-on-migrate: true
+    out-of-order: false
+    clean-disabled: true
+    enabled: true
+
+  mail:
+    host: smtp.feishu.cn
+    port: 465
+    protocol: smtps
+    username:
+    password:
+    default-encoding: UTF-8
+
+  profiles:
+    active: dev
+
+  jackson:
+    default-property-inclusion: NON_NULL
+
+  application:
+    name: recharge-api
+
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  redis:
+    host:
+    port: 28806
+    password:
+    database: 0
+
+server:
+  port: 8077
+  servlet:
+    context-path: /recharge-api
+  shutdown: graceful
+
+  tomcat:
+    relaxed-query-chars: '|,{,},[,]'
+
+xxl-job:
+  url: https://dev.xiaofeilun.cn/xxl-job-admin
+
+knife4j:
+  # 是否开启增强版
+  enable: true
+  # 是否开启账号密码登录
+  basic:
+    enable: false
+    username: admin
+    password:
+  openapi:
+    title: 投放接口文档
+    description: "投放接口文档"
+    concat: likaicheng
+    version: v1.0
+    group:
+      ecommerce:
+        group-name: recharge
+        api-rule: package
+        api-rule-resources:
+          - com.ama.recharge.controller
+
+logging:
+  level:
+    org:
+      springframework:
+        ws: TRACE
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+    shutdown:
+      enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
